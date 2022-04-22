@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smalldolphin.shop.mapper.DictDataMapper">
+
+    <resultMap id="dictDataResult" type="DictData">
+        <id     property="dictCode"     column="dict_code"></id>
+        <result property="dictSort"     column="dict_sort"></result>
+        <result property="dictLabel"    column="dict_label"></result>
+        <result property="dictValue"    column="dict_value"></result>
+        <result property="dictType"     column="dict_type"></result>
+        <result property="cssClass"     column="css_class"></result>
+        <result property="listClass"    column="list_class"></result>
+        <result property="isDefault"    column="is_default"></result>
+        <result property="status"       column="status"></result>
+        <result property="createBy"     column="create_by"></result>
+        <result property="createTime"   column="create_time"></result>
+        <result property="updateBy"     column="update_by"></result>
+        <result property="updateTime"   column="update_time"></result>
+    </resultMap>
+
+    <sql id="selectDictDataVo">
+        select dict_code, dict_sort, dict_label, dict_value, dict_type, css_class, list_class, is_default, status, create_by, create_time, remark
+        from sys_dict_data
+    </sql>
+
+    <select id="selectDictDataByType" parameterType="DictData" resultMap="dictDataResult">
+        <include refid="selectDictDataVo"></include>
+        where status = "0" and dict_type = #{dictType} order by dict_sort asc
+    </select>
+
+    <select id="countDictDataByType" parameterType="string" resultType="Integer">
+        select count(1) from sys_dict_data where dict_type = #{dictType}
+    </select>
+
+    <update id="updateDictDataType" parameterType="string">
+        update sys_dict_data set dict_type = {newDictType} where dict_type = #{oldDictType}
+    </update>
+</mapper>

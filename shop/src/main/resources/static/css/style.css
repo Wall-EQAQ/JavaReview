@@ -1,0 +1,569 @@
+html, body {
+    height: 100%;
+}
+li {
+    list-style: none;
+}
+body.signin {
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+    height: auto
+}
+body.full-height-layout #wrapper, body.full-height-layout #page-wrapper {
+    height: 100%;
+}
+.signinpanel {
+    width: 750px;
+    margin: 10% 10% auto auto;
+}
+.m-t {
+    margin-top: 15px;
+}
+.arrow {
+    float: right;
+    margin-top: 2px;
+}
+.fa.arrow:before {
+    content: "\f104";
+}
+
+.wrapper {
+    padding: 0 20px;
+}
+
+.wrapper-content {
+    padding: 20px;
+}
+
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    -webkit-border-image: none;
+    -o-border-image: none;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+}
+
+/*用户管理样式布局*/
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+}
+
+.box-header:before,.box-body:before,.box-footer:before,.box-header:after,.box-body:after,.box-footer:after {
+    content: " ";
+    display: table
+}
+
+.box-header:after,.box-body:after,.box-footer:after {
+    clear: both
+}
+
+.btn-box-tool {
+    padding: 5px;
+    font-size: 12px;
+    background: transparent;
+    color: #97a0b3;
+}
+
+.open .btn-box-tool,
+.btn-box-tool:hover {
+    color: #606c84;
+}
+
+.box-main {
+    margin: 0;
+    border: 0;
+    padding-top: 2px;
+    border-radius: 0;
+    box-shadow: none
+}
+
+.box-main>.box-header {
+    border-bottom: 1px solid #eee;
+    padding: 12px 10px 2px 15px
+}
+
+.box-header .box-title {
+    display: inline-block;
+    font-size: 18px;
+    margin: 0;
+    line-height: 1;
+}
+
+.box-main>.box-header .box-title {
+    font-size: 16px;
+    margin-bottom: 13px;
+    float: left
+}
+
+.box-main>.box-header .box-title .fa {
+    font-size: 14px;
+    padding-right: 3px;
+    margin-top: -2px
+}
+
+.box-main>.box-header .box-tools {
+    position: relative;
+    top: -5px;
+    right: 0
+}
+
+.box-main>.box-header .box-tools .btn {
+    padding: 3px 10px 5px 10px;
+    font-size: 14px;
+    margin-bottom: 2px
+}
+
+.box-main>.box-header .box-tools .btn-box-tool {
+    padding: 4px 2px
+}
+
+.box-main form>.box-footer,.nav-main form>.box-footer {
+    background: #fafafa
+}
+
+.box-main form>.box-footer .row,.nav-main form>.box-footer .row {
+    margin: 5px 0 5px -25px
+}
+
+
+/*背景颜色*/
+.gray-bg {
+    background-color: #f3f3f4;
+}
+
+.nav-label {
+    text-align: center;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.user-img {
+    width: 66px;
+    height: 50px;
+}
+.nav .navbar-top-links li{
+    display: block;
+}
+.navbar-top-links li:last-child{
+    margin-right: 40px;
+}
+.navbar-top-links li a{
+    padding: 3px 20px;
+    min-height: 0px;
+}
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+body.fixed-sidebar .navbar-static-side {
+    position: fixed;
+    width: 200px;
+    z-index: 2001;
+    height: 100%;
+}
+.nav.nav-second-level.collapse[style] {
+    height: auto !important;
+}
+.nav-second-level li {
+    border-bottom: none !important;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.nav-second-level li a {
+    padding: 7px 15px 7px 10px;
+    padding-left: 52px;
+}
+#side-menu {
+    padding-bottom: 60px;
+    position: relative;
+}
+
+/*页签部分开始*/
+.content-tabs {
+    position: relative;
+    height: 39px;
+    background: #fafafa;
+    line-height: 39px;
+}
+
+
+.page-tabs a{
+    color: #999999;
+    border-right: solid 1px #eeeeee;
+}
+.page-tabs a i {
+    color: #ccc;
+    margin-left: 2px;
+    font-size: 13px;
+}
+.page-tabs a.active {
+    background: #eaedf1;
+    color: #23508e;
+}
+.page-tabs a i:hover {
+    color: red;
+}
+nav.page-tabs .page-tabs-content {
+    margin-left: 20px;
+    float: left;
+}
+
+
+
+#page-wrapper {
+    padding: 0 15px;
+    position: inherit;
+    margin: 0 0 0 200px;
+    min-height: auto;
+}
+
+nav .logo {
+    background-color: #367fa9;
+    color: #fff;
+    border-bottom: 0 solid transparent;
+    -webkit-transition: width .3s ease-in-out;
+    -o-transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out;
+    display: block;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
+    width: 200px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 0 15px;
+    font-weight: 300;
+    overflow: hidden
+}
+.navbar-header {
+    height: 50px;
+    float: left;
+}
+.minimalize-styl-2 {
+    padding: 4px 12px;
+    margin: 12px 5px 5px 15px;
+    font-size: 14px;
+    float: left;
+}
+
+#content-main {
+    height: calc(100% - 127px);
+    overflow: hidden;
+}
+
+
+.select-list li {
+    color: #333;
+    margin: 5px 15px 5px 0px;
+}
+
+@media ( min-width : 768px) {
+    .select-list li {
+        float: left;
+    }
+}
+
+@media (min-width:768px){.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9{float:left}
+
+.select-list li p, .select-list li label:not(.radio-box){
+    float: left;
+    width: 65px;
+    margin: 5px 0px 0px 0px;
+    text-align:right;
+}
+
+.select-list li input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 200px;
+    padding-left: 5px;
+}
+
+.select-list li .submit-btn {
+    border: 0px;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    width: 40px;
+    height: 23px;
+}
+
+.select-list li select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 200px;
+}
+
+.bootstrap-select.form-control .btn-default {
+    color: inherit;
+    padding: 4px 6px 4px;
+    border-radius: 4px;
+    border: 1px solid #e5e6e7;
+    outline: none;
+    height: 31px;
+    background: #FFFFFF none
+}
+
+.file-input .btn-default {
+    color: inherit;
+    background: white;
+    border: 1px solid #e7eaec;
+}
+
+.select-list .btn-default {
+    color: #555;
+    padding: 5px 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 200px;
+}
+
+.select-list .btn-default:hover,.select-list .btn-default:focus,.select-list .btn-default:active,.select-list .btn-default.active,.open .dropdown-toggle.btn-default {
+    color: #555;
+    background-color: #e4e4e4;
+    border-color: #b2b2b2
+}
+
+.select-list .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    height: 30px;
+    width: 200px;
+}
+
+.select-list .bootstrap-select > .dropdown-toggle.bs-placeholder,
+.select-list .bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+.select-list .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.select-list .bootstrap-select > .dropdown-toggle.bs-placeholder:active {
+    color: inherit;
+    font-size: 13px;
+}
+
+.select-list .bootstrap-select .dropdown-toggle .caret {
+    position: inherit;
+}
+
+.select-list .select-selectpicker li {
+    float: none;
+}
+
+.select-list .dropdown-menu>li>a,.bootstrap-select.form-control .dropdown-menu>li>a {
+    line-height: inherit;
+}
+
+.select-list .dropdown-menu li>a:hover,.dropdown-menu li>a:focus,.dropdown-submenu:hover>a,.bootstrap-select.form-control .dropdown-menu li>a:hover,.dropdown-menu li>a:focus,.dropdown-submenu:hover>a{
+    color: #fff;
+    text-decoration: none;
+    background-color: #12889a
+}
+
+.select-list .select2-container--bootstrap {
+    width: 200px!important;
+    display: inline-block;
+}
+
+.select-list .select2-container--bootstrap .select2-selection {
+    border-radius: 6px;
+}
+
+.select-list .select2-container--bootstrap .select2-selection--single {
+    height: 30px!important;
+    padding: 5px 10px;
+}
+
+.select-list .select-time input {
+    width: 93px;
+}
+
+.select-time label,.select-time span,.select-time input {
+    float: left;
+}
+
+/*@media (max-width:767px) {*/
+/*    .select-time label,.select-time span,.select-time input {*/
+/*        float: none;*/
+/*    }*/
+/*    .select-list .select-time input {*/
+/*        width: 200px;*/
+/*    }*/
+/*}*/
+
+.select-time label {
+    margin-top: 5px;
+}
+
+.select-time span {
+    display: block;
+    margin: 5px 5px;
+}
+
+/** 表单布局 **/
+.form-header {
+    font-size:15px;
+    color:#6379bb;
+    border-bottom:1px solid #ddd;
+    margin:8px 10px 25px 10px;
+    padding-bottom:5px
+}
+
+/** 表单验证 样式布局 **/
+.control-label.is-required:before {
+    content: '* ';
+    color: red;
+}
+
+.main-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 10px 15px 15px 15px;
+    border-color: #e7eaec;
+    -webkit-border-image: none;
+    -o-border-image: none;
+    border-image: none;
+    border-width: 1px 0px;
+}
+
+.search-collapse,.select-table {
+    width: 100%;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 13px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+}
+
+
+.toggle-switch {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 0;
+    padding-top: 8px;
+}
+.toggle-switch input {
+    height: 0;
+    width: 0;
+    position: absolute;
+    opacity: 0;
+}
+.toggle-switch span {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #ebebeb;
+    border: 2px solid #ebebeb;
+    cursor: pointer;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease
+}
+.toggle-switch span:after {
+    content: '';
+    height: 20px;
+    width: 20px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+    left: 1px;
+    top: -7px;
+    color: #aaa;
+    -webkit-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+    text-align: center;
+    font-size: 13px;
+    background-color: #fff;
+    -webkit-box-shadow: rgba(0,0,0,.12) 0 1px 6px,rgba(0,0,0,.12) 0 1px 4px;
+    box-shadow: rgba(0,0,0,.12) 0 1px 6px,rgba(0,0,0,.12) 0 1px 4px
+}
+.toggle-switch input:checked~span:after {
+    left: -webkit-calc(100% - 20px);
+    left: calc(100% - 20px);
+    background-color: #33cabb
+}
+
+.toggle-switch.switch-solid span  {
+    height: 20px;
+}
+.toggle-switch.switch-solid span:after {
+    top: -2px;
+}
+.switch-solid input:checked~span {
+    background-color: #33cabb;
+    border-color: #33cabb
+}
+.switch-solid input:checked~span:after {
+    background-color: #fff;
+    color: #33cabb
+}
+
+.container-div {
+    padding: 0px 28px;
+    height: 100%;
+}
+
+/** 复选框&单选框  **/
+.check-box,.radio-box {
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 15px;
+    padding-top: 8px;
+}
+
+/* ztree */
+div.ztree-border {
+    margin-top: 10px;
+    border: 1px solid #e5e6e7;
+    background: #FFFFFF none;
+    border-radius:4px;
+}
+
+/** 表格树样式 **/
+.bootstrap-tree-table .treetable-indent {width:16px; height: 16px; display: inline-block; position: relative;}
+.bootstrap-tree-table .treetable-expander {width:16px; height: 16px; display: inline-block; position: relative; cursor: pointer;}
+.bootstrap-tree-table .treetable-selected{background: #f5f5f5 !important;}
+.bootstrap-tree-table .treetable-table{border:0 !important;margin-bottom:0}
+.bootstrap-tree-table .treetable-table tbody {display:block;height:auto;overflow-y:auto;}
+.bootstrap-tree-table .treetable-table thead, .treetable-table tbody tr {display:table;width:100%;table-layout:fixed;}
+.bootstrap-tree-table .treetable-thead th{line-height:24px;border: 0 !important;border-radius: 4px;border-left:0px solid #e7eaec !important;border-bottom:1px solid #ccc!important;text-align: left;}
+.bootstrap-tree-table .treetable-thead tr :first-child{border-left:0 !important}
+.bootstrap-tree-table .treetable-tbody td{border: 0 !important;border-left:0px solid #e7eaec !important;border-bottom:1px solid #e7eaec!important;white-space: nowrap; text-overflow: ellipsis;}
+.bootstrap-tree-table .treetable-tbody tr :first-child{border-left:0 !important}
+.bootstrap-tree-table .treetable-bars .tool-left, .bootstrap-tree-table .treetable-bars .tool-right{margin-top: 10px; margin-bottom: 10px;}
+.bootstrap-tree-table .treetable-bars .tool-left{float: left;}
+.bootstrap-tree-table .treetable-bars .tool-right{float: right;}
+.bootstrap-tree-table .treetable-bars .columns li label{display: block;padding: 3px 20px;clear: both;font-weight: 400;line-height: 1.428571429;max-width: 100%;margin-bottom: 5px;cursor:pointer;}
+.bootstrap-tree-table .table{border-bottom: 0px solid #e7eaec!important;}
+
+
+
+

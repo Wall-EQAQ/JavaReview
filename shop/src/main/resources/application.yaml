@@ -1,0 +1,109 @@
+shop:
+  #文件路径
+  profile: D:/shop/uploadPath
+user:
+  password:
+    maxRetryCount: 5
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/ry?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin123
+        reset-enable: false
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      aop-patterns: com.smalldolphin.shop.*
+      filters: stat,wall,slf4j
+      filter:
+        stat:
+          slow-sql-millis: 1000
+          log-slow-sql: true
+          enabled: true
+        wall:
+          enabled: true
+  redis:
+    host: 192.168.32.128
+    port: 6379
+    database: 0
+    timeout: 6000ms
+    lettuce:
+      pool:
+        #连接池最大连接数
+        max-active: 1000
+        #最大阻塞等待时间(负数表示没有限制)
+        max-wait: -1ms
+        #连接池中最大空闲连接
+        max-idle: 10
+        #连接池中最小空闲连接
+        min-idle: 5
+    password:
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.smalldolphin.shop.domain
+shiro:
+  user:
+    loginUrl: /login
+    unauthorizedUrl: /unauth
+    successUrl: /index
+    #验证码开关
+    captchaEnabled: true
+    #验证码类型 math 数组计算 char 字符
+    captchaType: char
+  cookie:
+    # 设置Cookie的域名 默认空，即当前访问的域名
+    domain:
+    #设置cookie的有效访问路径
+    path: /
+    #设置HttpOnly属性
+    httpOnly: true
+    #设置Cookie的过期时间  天为单位
+    maxAge: 30
+    # 设置密钥，务必保持唯一性（生成方式，直接拷贝到main运行即可）KeyGenerator keygen = KeyGenerator.getInstance("AES"); SecretKey deskey = keygen.generateKey(); System.out.println(Base64.encodeToString(deskey.getEncoded()));
+    cipherKey: zSyK5Kp6PZAAjlT+eeNMlg==
+  session:
+    #设置session超时时间，-1代表永不过期(默认30分钟)
+    expireTime: 30
+    #同步session 到数据库的周期(默认1分钟)
+    dbSyncPeriod: 1
+    #相隔多久检查一次session的有效性，默认就是10分钟
+    validationInterval: 10
+    # 同一个用户最大会话数，比如2的意思是同一个账号允许最多同时两个人登录（默认-1不限制）
+    maxSession: -1
+    kickoutAfter: false
+pagehelper:
+  helperDialect: mysql
+  #合理化分页参数
+  reasonable: true
+  supportMethodsArguments: true
+#开发环境配置
+server:
+  port: 80
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 800
+      min-spare: 30
+    basedir: D:/tomcatlog
+    accesslog:
+      enabled: true
+      directory: logs
+logging:
+  level:
+    com.shop: debug
+    org.springframework: warn
+
+

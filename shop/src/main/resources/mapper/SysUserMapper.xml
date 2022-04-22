@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smalldolphin.shop.mapper.SysUserMapper">
+    <resultMap id="userResult" type="SysUser">
+        <id property="userId" column="user_id"></id>
+        <result property="deptId" column="dept_id"></result>
+        <result property="loginName" column="login_name"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="userType" column="user_type"></result>
+        <result property="avatar" column="avatar"></result>
+        <result property="age" column="age"></result>
+        <result property="password" column="password"></result>
+        <result property="email" column="email"></result>
+        <result property="sex" column="sex"></result>
+        <result property="phonenumber" column="phonenumber"></result>
+        <result property="salt" column="salt"></result>
+        <result property="status" column="status"></result>
+        <result property="delFlag" column="del_flag"></result>
+        <result property="loginIp" column="login_ip"></result>
+        <result property="loginDate" column="login_date"></result>
+        <result property="createBy" column="create_by"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateBy" column="update_by"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="remark" column="remark"></result>
+        <association property="dept" column="dept_id" javaType="SysDept" resultMap="deptResult"></association>
+        <collection property="roles" javaType="List" resultMap="roleResult"></collection>
+    </resultMap>
+    <resultMap id="deptResult" type="SysDept">
+        <id property="deptId" column="dept_id"></id>
+        <result property="parentId" column="parent_id"></result>
+        <result property="deptName" column="dept_name"></result>
+        <result property="leader" column="leader"></result>
+        <result property="status" column="status"></result>
+    </resultMap>
+    <resultMap id="roleResult" type="SysRole">
+        <id property="roleId" column="role_id"></id>
+        <result property="roleName" column="role_name"></result>
+        <result property="roleKey" column="role_key"></result>
+        <result property="status" column="status"></result>
+        <result property="dataScope" column="dataScope"></result>
+        <result property="status" column="status"></result>
+    </resultMap>
+    <sql id="userVo">
+        select  u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.sex, u.password, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_time, u.remark,
+                d.dept_id, d.parent_id, d.dept_name,  d.leader, d.status as dept_status,
+                r.role_id, r.role_name, r.role_key,  r.data_scope, r.status as role_status
+        from sys_user u
+                 left join sys_dept d on u.dept_id = d.dept_id
+                 left join sys_user_role ur on u.user_id = ur.user_id
+                 left join sys_role r on r.role_id = ur.role_id
+    </sql>
+
+    <insert id="insertUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into sys_user(
+            <if test="userId != null and userId != 0">user_id,</if>
+            <if test="deptId != null and deptId != 0">dept_id,</if>
+            <if test="loginName != null and loginName != ''">login_name,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="avatar != null and avatar != ''">avatar,</if>
+            <if test="phonenumber != null and phonenumber != ''">phonenumber,</if>
+            <if test="sex != null and sex != ''">sex,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="salt != null and salt != ''">salt,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            create_time
+        )values (
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="deptId != null and deptId != ''">#{deptId},</if>
+            <if test="loginName != null and loginName != ''">#{loginName},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="avatar != null and avatar != ''">#{avatar},</if>
+            <if test="phonenumber != null and phonenumber != ''">#{phonenumber},</if>
+            <if test="sex != null and sex != ''">#{sex},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="salt != null and salt != ''">#{salt},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            sysdate()
+        )
+    </insert>
+
+    <update id="updateUser" parameterType="SysUser">
+        update sys_user
+        <set>
+            <if test="deptId != null and deptId != 0">dept_id = #{deptId},</if>
+            <if test="loginName != null and loginName != ''">login_name = #{loginName},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+            <if test="age != null and age != ''">age = #{age},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="sex != null and sex != ''">sex = #{sex},</if>
+            <if test="phonenumber != null and phonenumber != ''">phonenumber = #{phonenumber},</if>
+            <if test="salt != null and salt != ''">salt = #{salt},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="loginIp != null and loginIp != ''">login_ip = #{loginIp},</if>
+            <if test="loginDate != null">login_date = #{loginDate},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_time = sysdate()
+        </set>
+        <where>
+            user_id = #{userId}
+        </where>
+    </update>
+
+    <select id="selectUserById" resultType="Long" resultMap="userResult">
+        <include refid="userVo"></include>
+        where user_id = #{userId}
+    </select>
+    <select id="selectUserList" parameterType="SysUser" resultMap="userResult">
+        select u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.password, u.sex, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.dept_name, d.leader from sys_user u
+        left join sys_dept d on u.dept_id = d.dept_id
+        where u.del_flag = "0"
+        <if test="loginName != null and loginName != ''">
+            AND login_name like concat('%', #{loginName}, '%')
+        </if>
+        <if test="status != null and status !=''">
+            AND status = #{status}
+        </if>
+        <if test="phonenumber != null and phonenumber != ''">
+            AND u.phonenumber like concat('%', #{phonenumber}, '%')
+        </if>
+        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        </if>
+        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        </if>
+        <if test="deptId != null and deptId !=''">
+            AND (u.dept_id = #{deptId} OR u.dept_id IN (select t.dept_id from sys_dept t FIND_IN_SET (#{deptId},ancestors)))
+        </if>
+        ${params.dataScope}
+    </select>
+    <select id="selectUserByLoginName" parameterType="String" resultMap="userResult">
+        <include refid="userVo"></include>
+        where u.login_name = #{userName}
+    </select>
+
+    <delete id="deleteUserByIds" parameterType="Long">
+        update sys_user set del_flag = "2" where user_id in
+        <foreach collection="array" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <select id="checkEmailUnique" resultType="String" resultMap="userResult">
+        select user_id, email from sys_user where email = #{email} limit 1
+    </select>
+
+    <select id="checkLoginNameUnique" parameterType="String" resultType="int">
+        select count(1) from sys_user where login_name = #{loginName} limit 1
+    </select>
+
+    <select id="checkPhoneUnique" parameterType="String" resultMap="userResult">
+        select user_id, phonenumber from sys_user where phonenumber = #{phonenumber} limit 1;
+    </select>
+
+
+</mapper>

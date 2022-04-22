@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="/static/ajax/libs/layer/layer.js" th:src="@{/ajax/libs/layer/layer.js}"></script>
+    <script src="/static/js/jquery-3.3.1.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="/static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+</head>
+<body class="signin">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-md-offset-9">
+                <form id="signinForm" autocomplete="off" th:action="@{/login}" method="post">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="用户名" value="admin"><br>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="密码" value="admin123"><br>
+                    <div class="row" th:if="${captchaEnabled==true}">
+                        <div class="col-xs-6">
+                            <input class="form-control code" type="text" name="validateCode" placeholder="验证码">
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="javascript:;" title="点击切换验证码">
+                                <img class="imgCode" th:src="@{/captcha/captchaImage(type=${captchaType})}">
+                            </a>
+                        </div>
+                    </div>
+                    <input id="rememberme" type="checkbox" name="rememberme"><label for="rememberme">记住我</label><br>
+                    <button id="subButton" class="btn btn-primary btn-block" type="submit" onclick="login()">登录</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<script th:inline="javascript">
+    var captchaType = [[${captchaType}]];
+</script>
+<script type="text/javascript">
+    $(function() {
+        validateRule();
+        $('.imgCode').click(function () {
+            var url = "/captcha/captchaImage?type=" + captchaType;
+            $(".imgCode").attr("src",url);
+
+        });
+    });
+    //校验是否输入账号密码
+    function validateRule() {
+        $("#signinForm").validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                password: {
+                    required: true
+                }
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名",
+                },
+                password: {
+                    required: "请输入密码",
+                }
+            }
+        })
+    }
+
+    //当表单的输入框校验通过，才可以提交，指定一个提交的方法
+    $.validator.setDefaults({
+       submitHandler: function() {
+           login();
+       }
+    });
+    function login() {
+
+        var username = $.trim($("#username").val());
+        var password = $.trim($("#password").val());
+        var validateCode = $("input[name='validateCode']").val();
+        var rememberMe = $("#rememberme").is(':checked');
+        console.log(username,password,validateCode,rememberMe);
+        $.ajax({
+            type: "post",
+            url: "/login",
+            data: {
+                "username": username,
+                "password": password,
+                "validateCode": validateCode,
+                "rememberMe": rememberMe
+            },
+            success: function (result) {
+                if (result.code == 0) {
+                    location.href= '/index';
+                }else {
+                    $.modal.closeLoading();
+                    $(".imgCode").click();
+                    $(".code").val("");
+                    $.modal.msg(result.msg);
+                }
+            }
+
+        });
+
+    }
+    //获取请求的URI，并返回
+    function getParam(paramName) {
+        var reg = new RegExp("(^|&)" + paramName + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smalldolphin.shop.mapper.MenuMapper">
+    <resultMap id="menuResult" type="Menu">
+        <id property="menuId" column="menu_id"></id>
+        <result property="menuName" column="menu_name"></result>
+        <result property="parentId" column="parent_id"></result>
+        <result property="orderNum" column="order_num"></result>
+        <result property="url" column="url"></result>
+        <result property="target" column="target"></result>
+        <result property="menuType" column="menu_type"></result>
+        <result property="visible" column="visible"></result>
+        <result property="perms" column="perms"></result>
+        <result property="icon" column="icon"></result>
+        <result property="createBy" column="create_by"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateBy" column="update_by"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="remark" column="remark"></result>
+    </resultMap>
+    <sql id="menuVo">
+        select menu_id, menu_name, parent_id, order_num, url, target, menu_type, visible,
+               ifnull(perms,'') as perms, icon, create_by, create_time from sys_menu
+    </sql>
+    <select id="selectMenuById" parameterType="Long" resultMap="menuResult">
+        select m.menu_id, m.menu_name, m.parent_id, m.order_num, m.url, m.target, m.visible, m.perms, m.icon, m.remark, (select menu_name from menu where menu_id = parent_id) as parent_name
+        from sys_menu m
+        where m.menu_id = #{menuId};
+    </select>
+    <select id="selectMenuList" parameterType="Menu" resultMap="menuResult">
+        select *
+        from sys_menu
+        <where>
+            <if test="menuName != null and menuName != ''">
+                AND menu_name like concat('%',#{menuName},'%')
+            </if>
+            <if test="visible != null and visible != ''">
+                AND visible = #{visible}
+            </if>
+        </where>
+        order by parent_id, order_num
+    </select>
+    <select id="selectMenuListByUserId" parameterType="Long" resultMap="menuResult">
+        select *
+        from sys_menu m
+            left join role_menu rm on m.menu_id = rm.menu_id
+            left join sys_user_role ur on ur.role_id = rm.role_id
+            left join sys_role r on r.role_id = ur.role_id
+        where ur.user_id = #{params.userId}
+        <if test="menuName != null and menuName != ''">
+            AND m.menu_name like concat('%', #{menuName}, '%')
+        </if>
+        <if test="visible != null and visible != ''">
+            AND visible = #{visible}
+        </if>
+        order by m.parent_id, m.order_num
+    </select>
+    <select id="selectMenuByUserId" parameterType="Long" resultMap="menuResult">
+        select distinct m.menu_id, m.parent_id, m.menu_name, m.url, m.visible, ifnull(m.perms,'') as perms, m.target, m.menu_type, m.icon, m.order_num, m.create_time
+        from sys_menu m
+            left join role_menu rm on m.menu_id = rm.menu_id
+            left join sys_user_role ur on ur.role_id = rm.role_id
+            left join sys_role r on r.role_id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
+    <select id="selectPermsByUserId" parameterType="Long" resultType="String">
+        select distinct m.perms
+        from sys_menu m
+            left join role_menu rm on m.menu_id = rm.menu_id
+            left join sys_user_role ur on ur.role_id = rm.role_id
+            left join sys_role r on r.role_id = ur.role_id
+        where m.visible = '0' and r.status = '0' and ur.user_id = #{userId}
+    </select>
+    
+    <select id="selectMenuAll" resultMap="menuResult">
+        <include refid="menuVo"></include>
+        order by parent_id, order_num
+    </select>
+
+    <select id="selectMenuNormalAll" resultMap="menuResult">
+        select distinct m.menu_id, m.parent_id, m.menu_name, m.url, m.visible, ifnull(m.perms,'') as perms, m.target, m.menu_type, m.icon, m.order_num, m.create_time
+        from sys_menu m
+        where menu_type in ('M','C') and m.visible = 0
+        order by m.parent_id, m.order_num
+    </select>
+    <select id="checkMenuNameUnique" parameterType="Menu" resultMap="menuResult">
+        <include refid="menuVo"></include>
+        where menu_name = #{menuName} and parent_id = #{parentId} limit 1
+    </select>
+    <insert id="insertMenu" parameterType="Menu">
+        insert into sys_menu(
+            <if test="menuId != null and menuId != 0">menu_id,</if>
+            <if test="parent_id != null and parent_id != 0">parent_id,</if>
+            <if test="menuName != null and menuName != ''">menu_name,</if>
+            <if test="orderNum != null and orderNum != ''">order_num,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="target != null and target != ''">target,</if>
+            <if test="menuType != null and menuType != ''">menu_type,</if>
+            <if test="visible != null and visible != ''">visible,</if>
+            <if test="perms != null and perms != ''">perms,</if>
+            <if test="icon != null and icon != ''">icon,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time
+        )values (
+            <if test="menuId != null and menuId != 0">#{menuId},</if>
+            <if test="parent_id != null and parent_id != 0">#{parentId},</if>
+            <if test="menuName != null and menuName != ''">#{menuName},</if>
+            <if test="orderNum != null and orderNum != ''">#{orderNum},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="target != null and target != ''">#{target},</if>
+            <if test="menuType != null and menuType != ''">#{menuType},</if>
+            <if test="visible != null and visible != ''">#{visible},</if>
+            <if test="perms != null and perms != ''">#{perms},</if>
+            <if test="icon != null and icon != ''">#{icon},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            sysdate()
+        )
+    </insert>
+    <update id="updateMenu" parameterType="Menu">
+        update sys_menu
+        <set>
+            <if test="parent_id != null and parent_id != 0">parent_id = #{parentId},</if>
+            <if test="menuName != null and menuName != ''">menu_name# = {menuName},</if>
+            <if test="orderNum != null and orderNum != ''">order_num = #{orderNum},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="target != null and target != ''">target = #{target},</if>
+            <if test="menuType != null and menuType != ''">menu_type = #{menuType},</if>
+            <if test="visible != null and visible != ''">visible = #{visible},</if>
+            <if test="perms != null and perms != ''">perms = #{perms},</if>
+            <if test="icon != null and icon != ''">icon = #{icon},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            update_time = sysdate()
+        </set>
+        where menu_id = #{menuId}
+    </update>
+
+    <select id="selectMenuTree" parameterType="Long" resultType="String">
+        select concat(m.menu_id, ifnull(m.perms,'')) as perms
+        from sys_menu m left join sys_role_menu rm on m.menu_id = rm.menu_id
+        where rm.role_id = #{roleId}
+        order by m.parent_id, m.order_num
+    </select>
+</mapper>

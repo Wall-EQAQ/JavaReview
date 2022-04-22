@@ -1,0 +1,69 @@
+<!--通用css-->
+<head th:fragment="header(title)">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:text="${title}"></title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <!--表格样式插件-->
+    <link th:href="@{/ajax/libs/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/ajax/libs/layui/css/layui.css}" rel="stylesheet">
+</head>
+<!--通用js-->
+<div th:fragment="footer">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!--bootstrap表格插件-->
+    <script th:src="@{/ajax/libs/bootstrap-table/bootstrap-table.min.js}"></script>
+    <script th:src="@{/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+    <!--表单校验-->
+    <script th:src="@{/js/jquery.validate.js}"></script>
+    <script th:src="@{/js/messages_zh.js}"></script>
+
+    <script th:src="@{/ajax/libs/bootstrap-treetable/bootstrap-treetable.js}"></script>
+
+
+    <script th:src="@{/ajax/libs/layui/layui.js}"></script>
+
+    <script th:src="@{/js/common.js}"></script>
+    <script th:inline="javascript"> var ctx = [[@{/}]]; </script>
+</div>
+<!--zTree树插件-->
+<div th:fragment="ztree-css">
+    <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metroStyle/metroStyle.css}" rel="stylesheet" />
+    <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/zTreeStyle/zTreeStyle.css}" rel="stylesheet" />
+</div>
+<div th:fragment="ztree-js">
+    <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all.js}"></script>
+</div>
+<div th:fragment="layout-latest-css">
+    <link th:href="@{/ajax/libs/jquery-layout/layout-default-latest.css}" rel="stylesheet"/>
+</div>
+<div th:fragment="layout-latest-js">
+    <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
+</div>
+
+<!--select2下拉框插件-->
+<div th:fragment="select2-css">
+    <link th:href="@{/ajax/libs/select2/select2.css}" rel="stylesheet">
+    <link th:href="@{/ajax/libs/select2/select2-bootstrap.css}" rel="stylesheet">
+</div>
+<div th:fragment="select2-js">
+    <script th:src="@{/ajax/libs/select2/select2.js}"></script>
+</div>
+
+<!--bootstrap-select下拉框插件-->
+<div th:fragment="bootstrap-select-js">
+    <script th:src="@{/ajax/libs/bootstrap-select/bootstrap-select.js}"></script>
+</div>
+<div th:fragment="bootstrap-select-css" rel="stylesheet">
+    <script th:href="@{/ajax/libs/bootstrap-select/bootstrap-select.css}"></script>
+</div>
+
+<!-- 表格导出插件 -->
+<div th:fragment="bootstrap-table-export-js">
+    <script th:src="@{/ajax/libs/bootstrap-table/extensions/export/bootstrap-table-export.js}"></script>
+    <script th:src="@{/ajax/libs/bootstrap-table/extensions/export/tableExport.js}"></script>
+</div>

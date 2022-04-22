@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smalldolphin.shop.mapper.PostMapper">
+    <resultMap id="postResult" type="Post">
+        <id     property="postId"       column="post_id"></id>
+        <result property="postCode"     column="post_code"></result>
+        <result property="postName"     column="post_name"></result>
+        <result property="postSort"     column="post_sort"></result>
+        <result property="status"       column="status"></result>
+        <result property="createBy"     column="create_by"></result>
+        <result property="createTime"   column="create_time"></result>
+        <result property="updateBy"     column="update_by"></result>
+        <result property="updateTime"   column="update_time"></result>
+        <result property="remark"       column="remark"></result>
+    </resultMap>
+
+    <sql id="selectPostVo">
+        select post_id, post_code, post_name, post_sort, status, create_by, create_time, remark
+        from sys_post;
+    </sql>
+
+    <select id="selectPostList" parameterType="Post" resultMap="postResult">
+        <include refid="selectPostVo"></include>
+        <where>
+            <if test="postCode != null and postCode != ''">
+                AND post_code like concat('%', #{postCode}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="postName != null and postName != ''">
+                AND postName like concat('%', #{postName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPostAll" resultMap="postResult">
+        <include refid="selectPostVo"></include>
+    </select>
+
+    <select id="checkPostNameUnique" parameterType="String" resultMap="postResult">
+        <include refid="selectPostVo"></include>
+        where post_name = #{postName} limit 1
+    </select>
+
+    <select id="checkPostCodeUnique" parameterType="String" resultMap="postResult">
+        <include refid="selectPostVo"></include>
+        where post_code = #{postCode} limit 1
+    </select>
+</mapper>

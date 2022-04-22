@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('角色权限数据')"></th:block>
+    <th:block th:include="include :: ztree-css"></th:block>
+</head>
+<body class="bg-white">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form id="role-edit-form" class="form-horizontal" th:object="${role}">
+            <input id="roleId" name="roleId" type="hidden" th:field="*{roleId}">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">角色名称:</label>
+                <div class="col-sm-8">
+                    <input id="roleName" name="roleName" type="text" class="form-control" th:field="*{roleName}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">权限字符:</label>
+                <div class="col-sm-8">
+                    <input id="roleKey" name="roleKey" type="text" class="form-control" th:field="*{roleKey}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">数据范围:</label>
+                <div class="col-sm-8">
+                    <select id="dataScope" name="dataScope" class="form-control">
+                        <option value="1" th:field="*{dataScope}">全部数据权限</option>
+                        <option value="2" th:field="*{dataScope}">自定数据权限</option>
+                        <option value="3" th:field="*{dataScope}">本部门数据权限</option>
+                        <option value="4" th:field="*{dataScope}">本部门及以下数据权限</option>
+                        <option value="5" th:field="*{dataScope}">仅本人数据权限</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" id="authDataScope" th:style="'display:' + @{*{dataScope == '2'} ? 'block' : 'none'}">
+                <label class="col-sm-3 control-label">数据权限:</label>
+                <div class="col-sm-8">
+                    <label class="check-box">
+                        <input type="checkbox" value="1" checked>展开/折叠
+                    </label>
+                    <label class="check-box">
+                        <input type="checkbox" value="2">全选/全不选
+                    </label>
+                    <label class="check-box">
+                        <input type="checkbox" value="3">父子联动
+                    </label>
+                    <div id="deptTrees" class="ztree ztree-border"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer"></th:block>
+    <th:block th:include="include :: ztree-js"></th:block>
+    <script th:inline="javascript">
+        $(function() {
+            var url = ctx + "system/dept/roleDeptTreeData?roleId=" + $("#roleId").val();
+            var options = {
+                id: "deptTrees",
+                url: url,
+                check: { enable: true, nocheckInherit: true, chkboxType: { "Y": "ps", "N": "ps" } },
+                expandLevel: 2
+            };
+            $.table.init(options);
+        });
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smalldolphin.shop.mapper.UserPostMapper">
+    <resultMap id="userPostResult" type="UserPost">
+        <result property="userId" column="user_id"></result>
+        <result property="postId" column="post_id"></result>
+    </resultMap>
+
+    <delete id="deleteUserPostByUserId" parameterType="Long">
+        delete from sys_user_post where user_id = #{userId}
+    </delete>
+
+    <insert id="batchUserPost">
+        insert into sys_user_post values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userId}, #{item.postId})
+        </foreach>
+    </insert>
+</mapper>
